@@ -59,16 +59,24 @@ foreach (string name in studentNames)
     else if (currentStudent == "Logan")
         studentScores = loganScores;
 
-    int sumAssignmentScores = 0;
+    // Sum of all assignment scores, including extra credits(worth 10%)
+    decimal sumAssignmentScores = 0;
+    // Sum of required assignment scores, not counting extra credit
+    int sumRequiredAssignmentScores = 0;
+    // Sum of extra credit scores
+    int sumExtraCreditScores = 0;
+
     // Exam score - does not take extra credit into account
     decimal currentStudentExamScore = 0;
     // Average grade - includes extra credits
     decimal currentStudentGrade = 0;
     // Extra credit grade - Average of all extra credit grades
-    int currentStudentExtraCreditGrade = 0;
+    decimal currentStudentExtraCreditGrade = 0;
+
     // Extra points earned on the final grade, thanks to the extra credits
     decimal currentStudentExtraCreditPoints = 0;
 
+    // Total number of assignments, including extra credit
     int gradedAssignments = 0;
 
     /* 
@@ -80,13 +88,27 @@ foreach (string name in studentNames)
         gradedAssignments += 1;
 
         if (gradedAssignments <= examAssignments)
-            sumAssignmentScores += score;
+        {
+            sumRequiredAssignmentScores += score;
+            sumAssignmentScores = sumRequiredAssignmentScores;
+        }
 
         else
-            sumAssignmentScores += score / 10;
+        {
+            sumAssignmentScores += (decimal) (score) / 10;
+            sumExtraCreditScores += score;
+        }
     }
 
-    currentStudentGrade = (decimal)(sumAssignmentScores) / examAssignments;
+    currentStudentExamScore = (decimal)(sumRequiredAssignmentScores) / examAssignments;
+    currentStudentGrade     = sumAssignmentScores / examAssignments;
+
+    // Extra credit part for display
+    if (gradedAssignments > examAssignments)
+    {
+        currentStudentExtraCreditGrade = (decimal)(sumExtraCreditScores) / (gradedAssignments - examAssignments);
+        currentStudentExtraCreditPoints = currentStudentGrade - currentStudentExamScore;
+    }
 
     if (currentStudentGrade >= 97)
         currentStudentLetterGrade = "A+";
