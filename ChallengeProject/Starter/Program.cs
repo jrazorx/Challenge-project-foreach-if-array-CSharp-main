@@ -11,12 +11,9 @@ This C# console application is designed to:
     - divides the values of extra credit assignments by 10 before adding extra credit scores to the sum of exam scores.
 - use the following report format to report student grades: 
 
-    Student         Grade
+Student         Exam Score      Overall Grade   Extra Credit
 
-    Sophia:         92.2    A-
-    Andrew:         89.6    B+
-    Emma:           85.6    B
-    Logan:          91.2    A-
+Sophia          92.2            95.88   A       92 (3.68 pts)
 */
 int examAssignments = 5;
 
@@ -39,7 +36,7 @@ Console.WriteLine("Student\t\tExam Score\tOverall\tGrade\tExtra Credit\n");
 The outer foreach loop is used to:
 - iterate through student names 
 - assign a student's grades to the studentScores array
-- sum assignment scores (inner foreach loop)
+- calculate exam and extra credit sums (inner foreach loop)
 - calculate numeric and letter grade
 - write the score report information
 */
@@ -60,24 +57,24 @@ foreach (string name in studentNames)
         studentScores = loganScores;
 
     // Sum of all assignment scores, including extra credits(worth 10%)
-    decimal sumAssignmentScores = 0;
+    decimal sumAssignmentScores             = 0;
     // Sum of required assignment scores, not counting extra credit
-    int sumRequiredAssignmentScores = 0;
+    int sumRequiredAssignmentScores         = 0;
     // Sum of extra credit scores
-    int sumExtraCreditScores = 0;
+    int sumExtraCreditScores                = 0;
 
     // Exam score - does not take extra credit into account
-    decimal currentStudentExamScore = 0;
+    decimal currentStudentExamScore         = 0;
     // Average grade - includes extra credits
-    decimal currentStudentGrade = 0;
+    decimal currentStudentGrade             = 0;
     // Extra credit grade - Average of all extra credit grades
-    decimal currentStudentExtraCreditGrade = 0;
+    decimal currentStudentExtraCreditGrade  = 0;
 
     // Extra points earned on the final grade, thanks to the extra credits
     decimal currentStudentExtraCreditPoints = 0;
 
     // Total number of assignments, including extra credit
-    int gradedAssignments = 0;
+    int gradedAssignments                   = 0;
 
     /* 
     the inner foreach loop sums assignment scores
